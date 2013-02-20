@@ -50,7 +50,14 @@ exports.displayNotes = function(req, res) {
         if (err)
           console.log("Error rendering note list.");
         console.log(db_notes);
-        res.render("note", {title: title, notes: db_notes, chapter: chapter, userID: req.session.user});
+        var i = 1;
+        var chapterArray = []
+        while( i <= book.chapters) {
+          chapterArray[i-1] = i;
+          i++;
+        }
+        console.log(chapterArray)
+        res.render("note", {title: title, notes: db_notes, chapter: chapter, userID: req.session.user, chapters: chapterArray});
       });
   });
 };

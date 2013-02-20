@@ -30,10 +30,12 @@ block scripts
       margin-left: 390px;
       margin-top: -162px;
     }
+    table {
+      margin-left: 80px;
+    }
   script(type='text/javascript', src='../../../../../javascripts/bootstrapjs/bootstrap.js')
   script(type='text/javascript')
     $(document).ready(function() {
-
       var chapter = #{chapter};
       var title = "#{title}";
       $('#Submit').click(function (){
@@ -54,6 +56,7 @@ block scripts
         document.location.href = '/books/'+title+'/'+chapter;
       });
     });
+
 block content
   div(id='newNote', class='white')
     h1 Create A New Note
@@ -67,6 +70,16 @@ block content
         td(class='tableText')
           button(id='Submit')
             | Create
+      tr
+        td
+        td(class='tableText')
+          | Jump to Chapter:
+      each chapter in chapters
+        tr
+          td
+          td(class='tableText')
+            a(href='/books/#{title}/#{chapter}')
+              | Chapter #{chapter}
   div(id='noteList')
     h1
       | Notes for Chapter #{chapter}
