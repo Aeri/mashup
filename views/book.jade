@@ -1,0 +1,83 @@
+extends layout
+
+block scripts
+  link(rel='stylesheet', href='../stylesheets/bootstrapcss/bootstrap.css')
+  style
+    body {
+      padding-top: 60px;
+    }
+    .button {
+      margin-left: 5px;
+    }
+    #title {
+      margin-left: 10px;
+    }
+    #chapters {
+      margin-left: 10px;
+    }
+    .tableText {
+      text-align: right;
+    }
+    td {
+      padding-top: 3px;
+    }
+    #newBook {
+      width: 360px;
+      height: 150px;
+    }
+    #bookList {
+      margin-left: 390px;
+      margin-top: -162px;
+    }
+  script(src='../javascripts/bootstrapjs/bootstrap.js')
+  script(type='text/javascript')
+    $(document).ready(function() {
+      $('#Submit').click(function (){
+        console.log('Has been clicked');
+        var title = $('#title').val();
+        var chapters = $('#chapters').val();
+        if(chapters > 0)
+          if(chapters != '')
+            if(title != '')
+              $.post('./books/create', { title : title, chapters : chapters },    
+              function(data){
+              console.log('Is this working yet?');
+              document.location.href='/books';});
+        else
+          window.location.reload();
+      });
+      $('.rembutton').click(function (){
+        console.log('Button clicked...')
+        var title = $(this).attr('id');
+        $.post('/books/remove', { title: title });
+        $(this).parent().remove();
+        document.location.href='/books';});
+    });
+
+block content
+  div(id='newBook', class='white')
+    h1 Create A New Book
+    table
+      tr
+        td(class='tableText') Title:
+        td
+          input(id='title')
+      tr
+        td(class='tableText') Number of Chapters:
+        td
+          input(id='chapters')
+      tr
+        td
+        td(class='tableText')
+          button(id='Submit')
+            | Create
+  div(id='bookList')
+    h1
+      | List of Books
+    form(id='form')
+      each book in books
+        li
+          p(class='white')
+            a(href='/books/#{book.title}/1')
+              | #{book.title}: #{book.chapters} chapters.
+            input(type='button', class='rembutton', value='Remove', id='#{book.title}') 

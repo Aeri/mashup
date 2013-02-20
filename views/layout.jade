@@ -1,0 +1,40 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='stylesheets/bootstrapcss/bootstrap.css')
+    meta(charset='utf-8')
+    style
+      body {
+        padding-top: 60px;
+      }
+      .hidden {
+        display: none;
+      }
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='javascripts/bootstrapjs/bootstrap.js')
+    block scripts
+  body
+    //logoutClass = "hidden"
+    //loginClass = "visible"
+    //-if(userID)
+    //  logoutClass = "visible"
+    //  loginClass = "hidden"
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='/') PnPNotes
+          .nav-collapse.collapse
+            ul.nav
+              li
+                a(href='/books') Books
+              li(class='loginClass')
+                a(href='/login') Log In
+              li(class='logoutClass')
+                a(href='/logout') Log Out
+    .container
+      block content

@@ -1,0 +1,38 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='stylesheets/bootstrapcss/bootstrap.css')
+    meta(charset='utf-8')
+    style
+      body {
+        padding-top: 60px;
+      }
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='javascripts/bootstrapjs/bootstrap.js')
+    block scripts
+  body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand(href='#') PnPNotes
+          .nav-collapse.collapse
+            ul.nav
+              li
+                a(href='#books') Books
+              li
+                a(href='#login') Log In
+              li
+                a(href='#logout') Log Out
+    .container
+      h1 Bootstrap starter template
+      p
+        | Use this document as a way to quick start any new project.
+        br
+        | All you get is this message and a barebones HTML document.
+
+    block content

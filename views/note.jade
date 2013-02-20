@@ -1,0 +1,78 @@
+extends layout
+
+block scripts
+
+  link(rel='stylesheet', type='text/css', href='../../../../../stylesheets/bootstrapcss/bootstrap.css')
+  style
+    body {
+      padding-top: 60px;
+    }
+    .button {
+      margin-left: 5px;
+    }
+    #body {
+      margin-left: 10px;
+    }
+    #chapter {
+      margin-left: 10px;
+    }
+    .tableText {
+      text-align: right;
+    }
+    td {
+      padding-top: 3px;
+    }
+    #newNote {
+      width: 360px;
+      height: 150px;
+    }
+    #noteList {
+      margin-left: 390px;
+      margin-top: -162px;
+    }
+  script(type='text/javascript', src='../../../../../javascripts/bootstrapjs/bootstrap.js')
+  script(type='text/javascript')
+    $(document).ready(function() {
+
+      var chapter = #{chapter};
+      var title = "#{title}";
+      $('#Submit').click(function (){
+        var body = $('#body').val();
+        console.log('Has been clicked');
+        $.post(document.URL + '/create', { body : body, chapter : chapter, title : title},    
+        function(data){
+          console.log('Is this working yet?');
+          document.location.href = '/books/'+title+'/'+chapter;
+        });
+      });
+      $('.rembutton').click(function(data){
+        console.log('Button clicked...')
+        var id = $(this).attr('id');
+        console.log($(this).attr('id'));
+        $.post(document.URL + '/remove', { id: id, chapter: #{chapter}, title: title });
+        $(this).parent().remove();
+        document.location.href = '/books/'+title+'/'+chapter;
+      });
+    });
+block content
+  div(id='newNote', class='white')
+    h1 Create A New Note
+    table
+      tr
+        td(class='tableText') Note:
+        td
+          input(id='body')
+      tr
+        td
+        td(class='tableText')
+          button(id='Submit')
+            | Create
+  div(id='noteList')
+    h1
+      | Notes for Chapter #{chapter}
+    form(id='form')
+      ul
+        each note in notes
+          li
+            p(class='white') #{note.body}
+              input(type='button', class='rembutton', value='Remove', id='#{note._id}')
