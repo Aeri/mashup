@@ -23,8 +23,6 @@
 
 * I don't think you use this file, you can get rid of it.
 
-### `book.js`
-
 ## views
 
 ### `book.jade`
